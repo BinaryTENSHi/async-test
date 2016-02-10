@@ -1,0 +1,49 @@
+﻿<Window x:Class="AsyncTest.CommandQueue.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AsyncTest.CommandQueue"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance local:MainViewModel, d:IsDesignTimeCreatable=False}"
+        Title="CommandQueue Test" Height="350" Width="525">
+    <Window.Resources>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="25" />
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0" Grid.Column="0">
+            <StackPanel DockPanel.Dock="Top">
+                <Label Content="Input Text:" />
+                <TextBox Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+
+            <ListBox ItemsSource="{Binding Tasks}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="{x:Type local:PrintTask}">
+                        <TextBlock>
+                            <Run Text="Content: " />
+                            <Run Text="{Binding Content, Mode=OneWay}" />
+                        </TextBlock>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </DockPanel>
+
+        <Button Grid.Row="1" Grid.Column="0" Width="100" Content="Enqueue" Command="{Binding EnqueueCommand}" />
+
+        <Label Grid.Row="0" Grid.Column="1" Content="{Binding LogText}" />
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Width="100" Content="Parallel" Command="{Binding RunParallelAsyncCommand}" />
+            <Button Width="100" Content="Serial" Command="{Binding RunSerialAsyncCommand}" />
+        </StackPanel>
+    </Grid>
+</Window>
