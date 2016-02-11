@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+using AsyncTest.Communication.Server.Database.Mapper;
 
 namespace AsyncTest.Communication.Server.Database.Repository
 {
@@ -11,12 +12,12 @@ namespace AsyncTest.Communication.Server.Database.Repository
         where TDto : class, IDto, new()
     {
         private readonly IDatabaseContext _databaseContext;
-        private readonly IMapper<TEntity, TDto> _mapper;
+        private readonly IMapperDictionary _mapperDictionary;
 
-        protected AbstractRepository(IDatabaseContext databaseContext, IMapper<TEntity, TDto> mapper)
+        protected AbstractRepository(IDatabaseContext databaseContext, IMapperDictionary mapperDictionary)
         {
             _databaseContext = databaseContext;
-            _mapper = mapper;
+            _mapperDictionary = mapperDictionary;
         }
 
         public Task<bool> AnyAsync()
@@ -42,14 +43,14 @@ namespace AsyncTest.Communication.Server.Database.Repository
         public void Insert(TDto dto)
         {
             TEntity entity = _databaseContext.Set<TEntity>().Create();
-            _mapper.MapToEntity(dto, entity);
+            _mapperDictionary.GetMapperForType(entity.GetType()).MapToEntity(dto, entity);
             _databaseContext.Set<TEntity>().Add(entity);
         }
 
         public async Task UpdateAsync(TDto dto)
         {
             TEntity entity = await _databaseContext.Set<TEntity>().FindAsync(dto.Id).ConfigureAwait(false);
-            _mapper.MapToEntity(dto, entity);
+            _mapperDictionary.GetMapperForType(entity.GetType()).MapToEntity(dto, entity);
         }
 
         public async Task<bool> DeleteAsync(Guid id)
@@ -70,8 +71,7 @@ namespace AsyncTest.Communication.Server.Database.Repository
 
         private TDto ToData(TEntity entity)
         {
-            TDto dto = new TDto();
-            _mapper.MapToDto(entity, dto);
+            TDto dto = _mapperDictionary.GetMapperForType(entity.GetType()).CreateDto(entity);
             return dto;
         }
     }

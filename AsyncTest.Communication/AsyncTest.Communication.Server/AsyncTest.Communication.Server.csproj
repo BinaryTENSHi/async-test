@@ -121,17 +121,24 @@
     </ApplicationDefinition>
     <Compile Include="Database\DatabaseContext.cs" />
     <Compile Include="Database\IDto.cs" />
+    <Compile Include="Database\Mapper\AbstractMapper.cs" />
+    <Compile Include="Database\Mapper\MapperDictionary.cs" />
     <Compile Include="Database\Queue\QueueItem\IQueueItemRepository.cs" />
+    <Compile Include="Database\Queue\QueueItem\MessageQueueItem\MessageQueueItemMapper.cs" />
+    <Compile Include="Database\Queue\QueueItem\MessageQueueItem\IMessageQueueItemRepository.cs" />
+    <Compile Include="Database\Queue\QueueItem\MessageQueueItem\MessageQueueItemEntity.cs" />
+    <Compile Include="Database\Queue\QueueItem\MessageQueueItem\MessageQueueItemDto.cs" />
+    <Compile Include="Database\Queue\QueueItem\MessageQueueItem\MessageQueueItemRepository.cs" />
     <Compile Include="Database\Queue\QueueItem\QueueItemDto.cs" />
     <Compile Include="Database\IDatabaseContext.cs" />
-    <Compile Include="Database\IMapper.cs" />
+    <Compile Include="Database\Mapper\IMapper.cs" />
     <Compile Include="Database\Queue\QueueItem\QueueItemMapper.cs" />
     <Compile Include="Database\Queue\QueueItem\QueueItemEntity.cs" />
     <Compile Include="Database\IEntity.cs" />
     <Compile Include="Database\Queue\QueueItem\QueueItemModule.cs" />
     <Compile Include="Database\Queue\QueueItem\QueueItemRepository.cs" />
-    <Compile Include="Database\Queue\QueueItem\QueueItemType.cs" />
     <Compile Include="Database\Repository\AbstractRepository.cs" />
+    <Compile Include="Database\Mapper\IMapperDictionary.cs" />
     <Compile Include="Database\Repository\IRepository.cs" />
     <Compile Include="Server\Controller\QueueItemRestController.cs" />
     <Compile Include="Server\Controller\QueueRestController.cs" />

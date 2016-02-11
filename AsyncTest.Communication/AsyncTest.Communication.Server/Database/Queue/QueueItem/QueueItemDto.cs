@@ -1,4 +1,5 @@
 ﻿using System;
+using AsyncTest.Communication.Interface.Queue;
 
 namespace AsyncTest.Communication.Server.Database.Queue.QueueItem
 {

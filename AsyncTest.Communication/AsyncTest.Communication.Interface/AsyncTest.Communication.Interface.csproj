@@ -21,6 +21,7 @@
   <ItemGroup>
     <Compile Include="LinkRest.cs" />
     <Compile Include="Queue\QueueItemRest.cs" />
+    <Compile Include="Queue\QueueItemType.cs" />
     <Compile Include="Queue\QueueRest.cs" />
     <Compile Include="RestRelations.cs" />
     <Compile Include="RestRoutes.cs" />

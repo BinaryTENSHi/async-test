@@ -1,4 +1,5 @@
 ﻿using System;
+using AsyncTest.Communication.Interface.Queue;
 
 namespace AsyncTest.Communication.Interface
 {
@@ -10,7 +11,20 @@ namespace AsyncTest.Communication.Interface
         public const string QueueUrl = "queue/";
         public const string QueueItemUrl = QueueUrl + "{id:guid}/";
 
-        public static LinkRest MakeQueueItemLink(Guid id) =>
-            new LinkRest(RestRelations.QueueItemRelation, "/" + QueueItemUrl.Replace("{id:guid}", id.ToString()));
+        public static LinkRest MakeQueueItemLink(QueueItemType itemType, Guid id)
+        {
+            string relation;
+            switch (itemType)
+            {
+                case QueueItemType.Message:
+                    relation = RestRelations.MessageQueueItemRelation;
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(itemType), itemType, null);
+            }
+
+            return new LinkRest(relation, "/" + QueueItemUrl.Replace("{id:guid}", id.ToString()));
+        }
     }
 }

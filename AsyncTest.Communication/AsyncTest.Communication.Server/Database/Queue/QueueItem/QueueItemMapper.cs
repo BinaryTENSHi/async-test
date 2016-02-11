@@ -1,14 +1,19 @@
-﻿namespace AsyncTest.Communication.Server.Database.Queue.QueueItem
+﻿using AsyncTest.Communication.Server.Database.Mapper;
+
+namespace AsyncTest.Communication.Server.Database.Queue.QueueItem
 {
-    public class QueueItemMapper : IMapper<QueueItemEntity, QueueItemDto>
+    public class QueueItemMapper : AbstractMapper<QueueItemEntity, QueueItemDto>
     {
-        public void MapToDto(QueueItemEntity source, QueueItemDto target)
+        public override QueueItemDto CreateDto(QueueItemEntity source)
         {
-            target.Id = source.Id;
-            target.ItemType = source.ItemType;
+            return new QueueItemDto
+            {
+                Id = source.Id,
+                ItemType = source.ItemType
+            };
         }
 
-        public void MapToEntity(QueueItemDto source, QueueItemEntity target)
+        public override void MapToEntity(QueueItemDto source, QueueItemEntity target)
         {
             target.Id = source.Id;
             target.ItemType = source.ItemType;

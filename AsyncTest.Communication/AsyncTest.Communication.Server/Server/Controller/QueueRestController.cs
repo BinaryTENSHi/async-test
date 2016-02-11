@@ -25,7 +25,7 @@ namespace AsyncTest.Communication.Server.Server.Controller
             QueueRest queue = new QueueRest();
 
             foreach (QueueItemDto item in items)
-                queue.Items.Add(RestRoutes.MakeQueueItemLink(item.Id));
+                queue.Items.Add(RestRoutes.MakeQueueItemLink(item.ItemType, item.Id));
 
             return queue;
         }

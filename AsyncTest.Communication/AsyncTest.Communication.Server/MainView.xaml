@@ -5,6 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AsyncTest.Communication.Server"
         mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance local:MainViewModel}"
         Title="Communication Server" Height="350" Width="525">
-    <Grid />
+    <Grid>
+        <StackPanel>
+            <TextBox Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}" />
+            <Button Content="Create" Command="{Binding CreateMessageQueueItemAsyncCommand}" />
+        </StackPanel>
+    </Grid>
 </Window>

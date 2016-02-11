@@ -1,4 +1,6 @@
-﻿using Ninject.Modules;
+﻿using AsyncTest.Communication.Server.Database.Mapper;
+using AsyncTest.Communication.Server.Database.Queue.QueueItem.MessageQueueItem;
+using Ninject.Modules;
 
 namespace AsyncTest.Communication.Server.Database.Queue.QueueItem
 {
@@ -7,7 +9,10 @@ namespace AsyncTest.Communication.Server.Database.Queue.QueueItem
         public override void Load()
         {
             Bind<IQueueItemRepository>().To<QueueItemRepository>();
-            Bind<IMapper<QueueItemEntity, QueueItemDto>>().To<QueueItemMapper>();
+            Bind<IMapper, IMapper<QueueItemEntity, QueueItemDto>>().To<QueueItemMapper>();
+
+            Bind<IMessageQueueItemRepository>().To<MessageQueueItemRepository>();
+            Bind<IMapper, IMapper<MessageQueueItemEntity, MessageQueueItemDto>>().To<MessageQueueItemMapper>();
         }
     }
 }
