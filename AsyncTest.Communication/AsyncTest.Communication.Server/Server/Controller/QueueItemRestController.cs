@@ -33,9 +33,13 @@ namespace AsyncTest.Communication.Server.Server.Controller
 
         [HttpDelete]
         [Route(RestRoutes.QueueItemUrl)]
-        public Task DeleteAsync(HttpRequestMessage request, Guid id)
+        public async Task<HttpResponseMessage> DeleteAsync(HttpRequestMessage request, Guid id)
         {
-            return Task.CompletedTask;
+            bool success = await _queueItemRepository.DeleteAsync(id).ConfigureAwait(false);
+            if (!success)
+                return request.CreateErrorResponse(HttpStatusCode.NotFound, $"Could not delete item with id '{id}'");
+
+            return request.CreateResponse(HttpStatusCode.NoContent);
         }
     }
 }

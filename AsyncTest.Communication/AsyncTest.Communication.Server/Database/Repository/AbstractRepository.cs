@@ -52,6 +52,17 @@ namespace AsyncTest.Communication.Server.Database.Repository
             _mapper.MapToEntity(dto, entity);
         }
 
+        public async Task<bool> DeleteAsync(Guid id)
+        {
+            TEntity entity = await _databaseContext.Set<TEntity>().FindAsync(id).ConfigureAwait(false);
+            if (entity == null)
+                return false;
+
+            _databaseContext.Set<TEntity>().Remove(entity);
+            int rows = await _databaseContext.SaveChangesAsync().ConfigureAwait(false);
+            return rows > 0;
+        }
+
         public Task SaveChangesAsync()
         {
             return _databaseContext.SaveChangesAsync();

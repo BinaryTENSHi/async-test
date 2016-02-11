@@ -11,6 +11,7 @@ namespace AsyncTest.Communication.Server.Database.Repository
         Task<TDto> FindAsync(Guid id);
         void Insert(TDto dto);
         Task UpdateAsync(TDto dto);
+        Task<bool> DeleteAsync(Guid id);
         Task SaveChangesAsync();
     }
 }
