@@ -14,8 +14,8 @@ namespace AsyncTest.Database
     public class MainViewModel : Screen, IMainViewModel
     {
         private readonly IBalloonRepository _balloonRepository;
-        private BalloonDto _selectedBalloon;
         private IList<BalloonDto> _balloons;
+        private BalloonDto _selectedBalloon;
 
         public MainViewModel(IBalloonRepository balloonRepository)
         {

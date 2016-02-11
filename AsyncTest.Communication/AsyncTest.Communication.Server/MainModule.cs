@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using AsyncTest.Communication.Server.Server;
+using Caliburn.Micro;
 using Ninject.Modules;
 
 namespace AsyncTest.Communication.Server
@@ -10,6 +11,8 @@ namespace AsyncTest.Communication.Server
             Bind<IWindowManager>().To<WindowManager>();
 
             Bind<IMainViewModel>().To<MainViewModel>();
+
+            Bind<IRestServer>().To<RestServer>();
         }
     }
 }
