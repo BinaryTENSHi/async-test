@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AsyncTest.Communication.Server.Database.Repository
 {
-    public abstract class AbstractRepository<TEntity, TDto> : IRepository<TEntity, TDto>
+    public abstract class AbstractRepository<TEntity, TDto> : IRepository<TDto>
         where TEntity : class, IEntity, new()
         where TDto : class, IDto, new()
     {

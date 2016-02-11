@@ -2,7 +2,7 @@
 
 namespace AsyncTest.Communication.Server.Database.Queue.QueueItem
 {
-    public interface IQueueItemRepository : IRepository<QueueItemEntity, QueueItemDto>
+    public interface IQueueItemRepository : IRepository<QueueItemDto>
     {
     }
 }
