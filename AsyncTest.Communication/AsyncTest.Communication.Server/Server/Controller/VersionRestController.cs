@@ -8,7 +8,7 @@ namespace AsyncTest.Communication.Server.Server.Controller
     public class VersionRestController : ApiController
     {
         [HttpGet]
-        [Route("")]
+        [Route(RestRoutes.VersionUrl)]
         public Task<VersionRest> GetAsync(HttpRequestMessage request)
         {
             return Task.FromResult(new VersionRest());

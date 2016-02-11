@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using AsyncTest.Communication.Server.Database.Queue.QueueItem;
 using AsyncTest.Communication.Server.Server;
 using AsyncTest.Shared;
 
@@ -12,6 +13,7 @@ namespace AsyncTest.Communication.Server
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
             MainKernel.Load<MainModule>();
+            MainKernel.Load<QueueItemModule>();
 
             _restServer = MainKernel.Get<IRestServer>();
             _restServer.Start();

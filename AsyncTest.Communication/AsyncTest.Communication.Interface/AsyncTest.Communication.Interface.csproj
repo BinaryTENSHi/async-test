@@ -19,7 +19,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="VersionRest.cs" />
+    <Compile Include="LinkRest.cs" />
+    <Compile Include="Queue\QueueItemRest.cs" />
+    <Compile Include="Queue\QueueRest.cs" />
+    <Compile Include="RestRelations.cs" />
+    <Compile Include="RestRoutes.cs" />
+    <Compile Include="Version\VersionRest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
 </Project>
