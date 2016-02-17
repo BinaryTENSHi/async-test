@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AsyncTest.Communication.Interface.Queue;
-using AsyncTest.Communication.Server.Database.Queue.QueueItem;
 using AsyncTest.Communication.Server.Database.Queue.QueueItem.MessageQueueItem;
 using AsyncTest.Shared.UI;
 using Caliburn.Micro;

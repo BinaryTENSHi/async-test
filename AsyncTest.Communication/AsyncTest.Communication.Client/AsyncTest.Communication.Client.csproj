@@ -17,6 +17,10 @@
       <HintPath>..\packages\Caliburn.Micro.2.0.2\lib\net45\Caliburn.Micro.Platform.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
       <Private>True</Private>
@@ -51,7 +55,13 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
+    <Compile Include="Communication\AbstractAsyncPoller.cs" />
+    <Compile Include="Communication\IAsyncPoller.cs" />
+    <Compile Include="Communication\IRestClient.cs" />
+    <Compile Include="Communication\QueuePoller.cs" />
+    <Compile Include="Communication\RestClient.cs" />
     <Compile Include="IMainViewModel.cs" />
+    <Compile Include="Communication\IQueuePoller.cs" />
     <Compile Include="MainModule.cs" />
     <Compile Include="MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
@@ -91,6 +101,10 @@
     <ProjectReference Include="..\..\AsyncTest.Shared\AsyncTest.Shared.csproj">
       <Project>{B9A4D0E1-7327-4DE7-BB90-DECF0D3F1F7A}</Project>
       <Name>AsyncTest.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AsyncTest.Communication.Interface\AsyncTest.Communication.Interface.csproj">
+      <Project>{CF11D32A-E356-4A4D-B017-B7EDD51C50E6}</Project>
+      <Name>AsyncTest.Communication.Interface</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>
