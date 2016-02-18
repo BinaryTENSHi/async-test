@@ -1,4 +1,6 @@
 ﻿using AsyncTest.Communication.Client.Communication;
+using AsyncTest.Communication.Client.Communication.Queue;
+using AsyncTest.Communication.Client.Communication.Queue.QueueItem;
 using Caliburn.Micro;
 using Ninject.Modules;
 
@@ -14,6 +16,9 @@ namespace AsyncTest.Communication.Client
 
             Bind<IRestClient>().To<RestClient>();
             Bind<IQueuePoller>().To<QueuePoller>();
+            Bind<IQueueItemHandlerDictionary>().To<QueueItemHandlerDictionary>();
+
+            Bind<IQueueItemHandler>().To<MessageQueueItemHandler>();
         }
     }
 }

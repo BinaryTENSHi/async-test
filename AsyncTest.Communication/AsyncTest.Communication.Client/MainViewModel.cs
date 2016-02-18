@@ -1,4 +1,5 @@
 ﻿using AsyncTest.Communication.Client.Communication;
+using AsyncTest.Communication.Client.Communication.Queue;
 using Caliburn.Micro;
 
 namespace AsyncTest.Communication.Client

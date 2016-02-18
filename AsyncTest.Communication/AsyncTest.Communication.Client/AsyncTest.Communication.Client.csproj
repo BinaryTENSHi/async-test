@@ -58,10 +58,14 @@
     <Compile Include="Communication\AbstractAsyncPoller.cs" />
     <Compile Include="Communication\IAsyncPoller.cs" />
     <Compile Include="Communication\IRestClient.cs" />
-    <Compile Include="Communication\QueuePoller.cs" />
+    <Compile Include="Communication\Queue\IQueueItemHandlerDictionary.cs" />
+    <Compile Include="Communication\Queue\QueueItemHandlerDictionary.cs" />
+    <Compile Include="Communication\Queue\QueueItem\IQueueItemHandler.cs" />
+    <Compile Include="Communication\Queue\QueueItem\MessageQueueItemHandler.cs" />
+    <Compile Include="Communication\Queue\QueuePoller.cs" />
     <Compile Include="Communication\RestClient.cs" />
     <Compile Include="IMainViewModel.cs" />
-    <Compile Include="Communication\IQueuePoller.cs" />
+    <Compile Include="Communication\Queue\IQueuePoller.cs" />
     <Compile Include="MainModule.cs" />
     <Compile Include="MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
