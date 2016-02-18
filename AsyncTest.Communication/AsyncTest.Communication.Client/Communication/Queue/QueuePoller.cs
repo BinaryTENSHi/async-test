@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using AsyncTest.Communication.Client.Communication.Queue.QueueItem;
 using AsyncTest.Communication.Interface;
@@ -29,6 +30,11 @@ namespace AsyncTest.Communication.Client.Communication.Queue
                 await handler.HandleAsync(itemUri).ConfigureAwait(false);
                 await _restClient.DeleteAsync(itemUri).ConfigureAwait(false);
             }
+        }
+
+        protected override void OnException(Exception exception)
+        {
+            Debug.WriteLine($"Exception Occurred: ${exception.GetType()}\n{exception}");
         }
     }
 }

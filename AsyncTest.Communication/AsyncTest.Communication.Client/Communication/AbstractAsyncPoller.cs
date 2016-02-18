@@ -45,13 +45,22 @@ namespace AsyncTest.Communication.Client.Communication
         {
             while (true)
             {
-                if (_token.IsCancellationRequested)
-                    break;
+                try
+                {
+                    if (_token.IsCancellationRequested)
+                        break;
 
-                await PollAsync().ConfigureAwait(false);
-                await Task.Delay(_timeSpan).ConfigureAwait(false);
+                    await PollAsync().ConfigureAwait(false);
+                    await Task.Delay(_timeSpan).ConfigureAwait(false);
+                }
+                catch (Exception e)
+                {
+                    OnException(e);
+                }
             }
         }
+
+        protected abstract void OnException(Exception exception);
 
         private void Dispose(bool disposing)
         {
