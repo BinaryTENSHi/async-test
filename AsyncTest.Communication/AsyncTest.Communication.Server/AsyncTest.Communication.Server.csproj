@@ -140,6 +140,7 @@
     <Compile Include="Database\Repository\AbstractRepository.cs" />
     <Compile Include="Database\Mapper\IMapperDictionary.cs" />
     <Compile Include="Database\Repository\IRepository.cs" />
+    <Compile Include="Event\EntityChangedEvent.cs" />
     <Compile Include="Server\Controller\QueueItemRestController.cs" />
     <Compile Include="Server\Controller\QueueRestController.cs" />
     <Compile Include="Server\Controller\VersionRestController.cs" />

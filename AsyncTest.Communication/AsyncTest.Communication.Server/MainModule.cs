@@ -11,6 +11,8 @@ namespace AsyncTest.Communication.Server
         public override void Load()
         {
             Bind<IWindowManager>().To<WindowManager>();
+            Bind<IEventAggregator>().To<EventAggregator>().InSingletonScope();
+
             Bind<IMainViewModel>().To<MainViewModel>();
             Bind<IRestServer>().To<RestServer>();
             Bind<IDatabaseContext>().To<DatabaseContext>();

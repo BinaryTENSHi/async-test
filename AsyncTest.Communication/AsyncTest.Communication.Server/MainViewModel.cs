@@ -1,26 +1,38 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using AsyncTest.Communication.Interface.Queue;
+using AsyncTest.Communication.Server.Database.Queue.QueueItem;
 using AsyncTest.Communication.Server.Database.Queue.QueueItem.MessageQueueItem;
+using AsyncTest.Communication.Server.Event;
 using AsyncTest.Shared.UI;
 using Caliburn.Micro;
 
 namespace AsyncTest.Communication.Server
 {
-    public class MainViewModel : Screen, IMainViewModel
+    public class MainViewModel : Screen, IMainViewModel, IHandleWithTask<EntityChangedEvent<QueueItemEntity>>
     {
-        private readonly IMessageQueueItemRepository _messageQueueItemRepository;
+        private readonly IEventAggregator _eventAggregator;
+        private readonly IQueueItemRepository _queueItemRepository;
         private string _inputText;
 
-        public MainViewModel(IMessageQueueItemRepository messageQueueItemRepository)
+        public MainViewModel(IQueueItemRepository queueItemRepository, IEventAggregator eventAggregator)
         {
-            _messageQueueItemRepository = messageQueueItemRepository;
+            _queueItemRepository = queueItemRepository;
+            _eventAggregator = eventAggregator;
 
             CreateMessageQueueItemAsyncCommand = new AsyncCommand
             {
                 CanExecuteHandler = obj => !string.IsNullOrWhiteSpace(InputText),
                 ExecuteHandler = CreateMessageQueueItemAsync
             };
+
+            QueueItems = new ObservableCollection<QueueItemDto>();
+        }
+
+        public Task Handle(EntityChangedEvent<QueueItemEntity> message)
+        {
+            return Execute.OnUIThreadAsync(async () => await UpdateQueueItemsAsync().ConfigureAwait(false));
         }
 
         public string InputText
@@ -35,6 +47,8 @@ namespace AsyncTest.Communication.Server
 
         public IAsyncCommand CreateMessageQueueItemAsyncCommand { get; }
 
+        public ObservableCollection<QueueItemDto> QueueItems { get; set; }
+
         private async Task CreateMessageQueueItemAsync(object parameter)
         {
             MessageQueueItemDto item = new MessageQueueItemDto
@@ -44,13 +58,31 @@ namespace AsyncTest.Communication.Server
                 Message = InputText
             };
 
-            _messageQueueItemRepository.Insert(item);
-            await _messageQueueItemRepository.SaveChangesAsync().ConfigureAwait(false);
+            _queueItemRepository.Insert(item);
+            await _queueItemRepository.SaveChangesAsync().ConfigureAwait(false);
         }
 
         protected override void OnInitialize()
         {
             DisplayName = "Communication Server";
+        }
+
+        protected override async void OnActivate()
+        {
+            _eventAggregator.Subscribe(this);
+            await UpdateQueueItemsAsync().ConfigureAwait(false);
+        }
+
+        protected override void OnDeactivate(bool close)
+        {
+            _eventAggregator.Unsubscribe(this);
+        }
+
+        private async Task UpdateQueueItemsAsync()
+        {
+            QueueItems.Clear();
+            foreach (QueueItemDto queueItemDto in await _queueItemRepository.AllAsync().ConfigureAwait(true))
+                QueueItems.Add(queueItemDto);
         }
     }
 }

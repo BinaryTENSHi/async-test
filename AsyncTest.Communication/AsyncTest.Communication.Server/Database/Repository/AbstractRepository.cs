@@ -4,6 +4,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using AsyncTest.Communication.Server.Database.Mapper;
+using AsyncTest.Communication.Server.Event;
+using Caliburn.Micro;
 
 namespace AsyncTest.Communication.Server.Database.Repository
 {
@@ -12,12 +14,15 @@ namespace AsyncTest.Communication.Server.Database.Repository
         where TDto : class, IDto, new()
     {
         private readonly IDatabaseContext _databaseContext;
+        private readonly IEventAggregator _eventAggregator;
         private readonly IMapperDictionary _mapperDictionary;
 
-        protected AbstractRepository(IDatabaseContext databaseContext, IMapperDictionary mapperDictionary)
+        protected AbstractRepository(IDatabaseContext databaseContext, IMapperDictionary mapperDictionary,
+            IEventAggregator eventAggregator)
         {
             _databaseContext = databaseContext;
             _mapperDictionary = mapperDictionary;
+            _eventAggregator = eventAggregator;
         }
 
         public Task<bool> AnyAsync()
@@ -45,12 +50,14 @@ namespace AsyncTest.Communication.Server.Database.Repository
             TEntity entity = _databaseContext.Set<TEntity>().Create();
             _mapperDictionary.GetMapperForType(entity.GetType()).MapToEntity(dto, entity);
             _databaseContext.Set<TEntity>().Add(entity);
+            _eventAggregator.PublishOnBackgroundThread(new EntityChangedEvent<TEntity>(entity.Id));
         }
 
         public async Task UpdateAsync(TDto dto)
         {
             TEntity entity = await _databaseContext.Set<TEntity>().FindAsync(dto.Id).ConfigureAwait(false);
             _mapperDictionary.GetMapperForType(entity.GetType()).MapToEntity(dto, entity);
+            _eventAggregator.PublishOnBackgroundThread(new EntityChangedEvent<TEntity>(entity.Id));
         }
 
         public async Task<bool> DeleteAsync(Guid id)
@@ -61,6 +68,7 @@ namespace AsyncTest.Communication.Server.Database.Repository
 
             _databaseContext.Set<TEntity>().Remove(entity);
             int rows = await _databaseContext.SaveChangesAsync().ConfigureAwait(false);
+            _eventAggregator.PublishOnBackgroundThread(new EntityChangedEvent<TEntity>(id));
             return rows > 0;
         }
 

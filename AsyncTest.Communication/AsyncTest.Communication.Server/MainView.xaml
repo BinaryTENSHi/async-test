@@ -4,13 +4,26 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AsyncTest.Communication.Server"
+        xmlns:queueItem="clr-namespace:AsyncTest.Communication.Server.Database.Queue.QueueItem"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance local:MainViewModel}"
         Title="Communication Server" Height="350" Width="525">
     <Grid>
-        <StackPanel>
-            <TextBox Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}" />
-            <Button Content="Create" Command="{Binding CreateMessageQueueItemAsyncCommand}" />
-        </StackPanel>
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Top">
+                <TextBox Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}" />
+                <Button Content="Create" Command="{Binding CreateMessageQueueItemAsyncCommand}" />
+            </StackPanel>
+            <ListBox DockPanel.Dock="Bottom" ItemsSource="{Binding QueueItems}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="{x:Type queueItem:QueueItemDto}">
+                        <TextBlock>
+                            <Run Text="{Binding Id}" />
+                            <Run Text="{Binding ItemType}" />
+                        </TextBlock>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </DockPanel>
     </Grid>
 </Window>
