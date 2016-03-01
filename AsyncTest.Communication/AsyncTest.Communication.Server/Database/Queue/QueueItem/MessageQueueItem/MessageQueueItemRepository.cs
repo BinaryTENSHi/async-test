@@ -4,9 +4,11 @@ using Caliburn.Micro;
 
 namespace AsyncTest.Communication.Server.Database.Queue.QueueItem.MessageQueueItem
 {
-    public class MessageQueueItemRepository : AbstractRepository<MessageQueueItemEntity, MessageQueueItemDto>, IMessageQueueItemRepository
+    public class MessageQueueItemRepository : AbstractRepository<MessageQueueItemEntity, MessageQueueItemDto>,
+        IMessageQueueItemRepository
     {
-        public MessageQueueItemRepository(IDatabaseContext databaseContext, IMapperDictionary mapperDictionary, IEventAggregator eventAggregator)
+        public MessageQueueItemRepository(IDatabaseContext databaseContext, IMapperDictionary mapperDictionary,
+            IEventAggregator eventAggregator)
             : base(databaseContext, mapperDictionary, eventAggregator)
         {
         }

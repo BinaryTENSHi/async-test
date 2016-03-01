@@ -1,5 +1,4 @@
-﻿using AsyncTest.Communication.Client.Communication;
-using AsyncTest.Communication.Client.Communication.Control;
+﻿using AsyncTest.Communication.Client.Communication.Control;
 using AsyncTest.Communication.Client.Communication.Queue;
 using Caliburn.Micro;
 
@@ -7,8 +6,8 @@ namespace AsyncTest.Communication.Client
 {
     public class MainViewModel : Screen, IMainViewModel
     {
-        private readonly IQueuePoller _queuePoller;
         private readonly IControlPoller _controlPoller;
+        private readonly IQueuePoller _queuePoller;
 
         public MainViewModel(IQueuePoller queuePoller, IControlPoller controlPoller)
         {

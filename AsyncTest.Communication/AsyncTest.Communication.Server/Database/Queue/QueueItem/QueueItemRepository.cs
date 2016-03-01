@@ -6,7 +6,8 @@ namespace AsyncTest.Communication.Server.Database.Queue.QueueItem
 {
     public class QueueItemRepository : AbstractRepository<QueueItemEntity, QueueItemDto>, IQueueItemRepository
     {
-        public QueueItemRepository(IDatabaseContext databaseContext, IMapperDictionary mapperDictionary, IEventAggregator eventAggregator)
+        public QueueItemRepository(IDatabaseContext databaseContext, IMapperDictionary mapperDictionary,
+            IEventAggregator eventAggregator)
             : base(databaseContext, mapperDictionary, eventAggregator)
         {
         }

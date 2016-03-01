@@ -9,8 +9,8 @@ namespace AsyncTest.Communication.Client.Communication.Control
     public class ControlPoller : AbstractAsyncPoller, IControlPoller
     {
         private readonly Uri _baseUri = new Uri("http://localhost:6688/");
-        private readonly IRestClient _restClient;
         private readonly IQueuePoller _queuePoller;
+        private readonly IRestClient _restClient;
 
         public ControlPoller(IRestClient restClient, IQueuePoller queuePoller)
         {
