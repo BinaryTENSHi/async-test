@@ -1,4 +1,5 @@
 ﻿using AsyncTest.Communication.Client.Communication;
+using AsyncTest.Communication.Client.Communication.Control;
 using AsyncTest.Communication.Client.Communication.Queue;
 using AsyncTest.Communication.Client.Communication.Queue.QueueItem;
 using Caliburn.Micro;
@@ -15,7 +16,8 @@ namespace AsyncTest.Communication.Client
             Bind<IMainViewModel>().To<MainViewModel>();
 
             Bind<IRestClient>().To<RestClient>();
-            Bind<IQueuePoller>().To<QueuePoller>();
+            Bind<IQueuePoller>().To<QueuePoller>().InSingletonScope();
+            Bind<IControlPoller>().To<ControlPoller>().InSingletonScope();
             Bind<IQueueItemHandlerDictionary>().To<QueueItemHandlerDictionary>();
 
             Bind<IQueueItemHandler>().To<MessageQueueItemHandler>();

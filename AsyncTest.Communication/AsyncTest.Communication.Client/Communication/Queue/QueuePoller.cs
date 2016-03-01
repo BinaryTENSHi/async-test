@@ -22,6 +22,8 @@ namespace AsyncTest.Communication.Client.Communication.Queue
 
         public override async Task PollAsync()
         {
+            Debug.WriteLine("Polling queue...");
+
             QueueRest queue = await _restClient.GetAsync<QueueRest>(new Uri(_baseUri, "/queue/")).ConfigureAwait(false);
             foreach (LinkRest linkRest in queue.Items)
             {

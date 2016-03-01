@@ -9,5 +9,6 @@ namespace AsyncTest.Communication.Client.Communication
         void StopPolling();
 
         Task PollAsync();
+        bool IsRunning { get; }
     }
 }

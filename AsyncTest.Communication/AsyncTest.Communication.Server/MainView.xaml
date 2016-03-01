@@ -11,6 +11,7 @@
     <Grid>
         <DockPanel>
             <StackPanel DockPanel.Dock="Top">
+                <CheckBox Content="Client should poll queue" IsChecked="{Binding ShouldPoll}" />
                 <TextBox Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}" />
                 <Button Content="Create" Command="{Binding CreateMessageQueueItemAsyncCommand}" />
             </StackPanel>

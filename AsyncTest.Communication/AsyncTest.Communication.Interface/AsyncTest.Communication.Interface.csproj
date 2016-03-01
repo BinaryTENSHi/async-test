@@ -19,6 +19,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Control\ControlRest.cs" />
     <Compile Include="LinkRest.cs" />
     <Compile Include="Queue\MessageQueueItemRest.cs" />
     <Compile Include="Queue\QueueItemRest.cs" />

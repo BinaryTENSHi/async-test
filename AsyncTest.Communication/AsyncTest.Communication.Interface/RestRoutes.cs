@@ -10,6 +10,7 @@ namespace AsyncTest.Communication.Interface
 
         public const string QueueUrl = "queue/";
         public const string QueueItemUrl = QueueUrl + "{id:guid}/";
+        public const string ControlUrl = "control/";
 
         public static LinkRest MakeQueueItemLink(QueueItemType itemType, Guid id)
         {

@@ -56,6 +56,8 @@
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Communication\AbstractAsyncPoller.cs" />
+    <Compile Include="Communication\Control\ControlPoller.cs" />
+    <Compile Include="Communication\Control\IControlPoller.cs" />
     <Compile Include="Communication\IAsyncPoller.cs" />
     <Compile Include="Communication\IRestClient.cs" />
     <Compile Include="Communication\Queue\IQueueItemHandlerDictionary.cs" />

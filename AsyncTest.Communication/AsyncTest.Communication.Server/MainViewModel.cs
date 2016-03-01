@@ -5,6 +5,7 @@ using AsyncTest.Communication.Interface.Queue;
 using AsyncTest.Communication.Server.Database.Queue.QueueItem;
 using AsyncTest.Communication.Server.Database.Queue.QueueItem.MessageQueueItem;
 using AsyncTest.Communication.Server.Event;
+using AsyncTest.Communication.Server.Service;
 using AsyncTest.Shared.UI;
 using Caliburn.Micro;
 
@@ -12,14 +13,19 @@ namespace AsyncTest.Communication.Server
 {
     public class MainViewModel : Screen, IMainViewModel, IHandleWithTask<EntityChangedEvent<QueueItemEntity>>
     {
+        private readonly IControlService _controlService;
         private readonly IEventAggregator _eventAggregator;
         private readonly IQueueItemRepository _queueItemRepository;
         private string _inputText;
 
-        public MainViewModel(IQueueItemRepository queueItemRepository, IEventAggregator eventAggregator)
+        public MainViewModel(
+            IQueueItemRepository queueItemRepository,
+            IEventAggregator eventAggregator,
+            IControlService controlService)
         {
             _queueItemRepository = queueItemRepository;
             _eventAggregator = eventAggregator;
+            _controlService = controlService;
 
             CreateMessageQueueItemAsyncCommand = new AsyncCommand
             {
@@ -48,6 +54,12 @@ namespace AsyncTest.Communication.Server
         public IAsyncCommand CreateMessageQueueItemAsyncCommand { get; }
 
         public ObservableCollection<QueueItemDto> QueueItems { get; set; }
+
+        public bool ShouldPoll
+        {
+            get { return _controlService.ShouldPoll; }
+            set { _controlService.ShouldPoll = value; }
+        }
 
         private async Task CreateMessageQueueItemAsync(object parameter)
         {

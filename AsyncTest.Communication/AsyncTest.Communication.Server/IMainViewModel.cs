@@ -9,5 +9,6 @@ namespace AsyncTest.Communication.Server
         IAsyncCommand CreateMessageQueueItemAsyncCommand { get; }
         string InputText { get; set; }
         ObservableCollection<QueueItemDto> QueueItems { get; set; }
+        bool ShouldPoll { get; set; }
     }
 }

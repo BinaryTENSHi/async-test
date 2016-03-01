@@ -141,11 +141,14 @@
     <Compile Include="Database\Mapper\IMapperDictionary.cs" />
     <Compile Include="Database\Repository\IRepository.cs" />
     <Compile Include="Event\EntityChangedEvent.cs" />
+    <Compile Include="Server\Controller\ControlRestController.cs" />
     <Compile Include="Server\Controller\QueueItemRestController.cs" />
     <Compile Include="Server\Controller\QueueRestController.cs" />
     <Compile Include="Server\Controller\VersionRestController.cs" />
     <Compile Include="Server\IRestServer.cs" />
     <Compile Include="Server\RestServer.cs" />
+    <Compile Include="Service\ControlService.cs" />
+    <Compile Include="Service\IControlService.cs" />
     <Page Include="MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

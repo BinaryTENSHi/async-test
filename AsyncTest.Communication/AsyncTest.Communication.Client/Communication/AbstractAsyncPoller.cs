@@ -20,12 +20,17 @@ namespace AsyncTest.Communication.Client.Communication
             if (_timeSpan == null)
                 throw new InvalidOperationException("Interval not set");
 
+            _token = new CancellationTokenSource();
             _task = Task.Factory.StartNew(PollingTaskAsync, TaskCreationOptions.LongRunning);
+            IsRunning = true;
         }
+
+        public bool IsRunning { get; private set; }
 
         public void StopPolling()
         {
             _token.Cancel();
+            IsRunning = false;
         }
 
         public abstract Task PollAsync();
@@ -58,6 +63,8 @@ namespace AsyncTest.Communication.Client.Communication
                     OnException(e);
                 }
             }
+
+            IsRunning = false;
         }
 
         protected abstract void OnException(Exception exception);
