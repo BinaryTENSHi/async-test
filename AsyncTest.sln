@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncTest.Communication.Cli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncTest.Communication.Interface", "AsyncTest.Communication\AsyncTest.Communication.Interface\AsyncTest.Communication.Interface.csproj", "{CF11D32A-E356-4A4D-B017-B7EDD51C50E6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncTest.Monad", "AsyncTest.Monad\AsyncTest.Monad.csproj", "{B18329A8-0AC2-4D86-AE10-30DDE4DA6C0A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{CF11D32A-E356-4A4D-B017-B7EDD51C50E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF11D32A-E356-4A4D-B017-B7EDD51C50E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF11D32A-E356-4A4D-B017-B7EDD51C50E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B18329A8-0AC2-4D86-AE10-30DDE4DA6C0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B18329A8-0AC2-4D86-AE10-30DDE4DA6C0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B18329A8-0AC2-4D86-AE10-30DDE4DA6C0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B18329A8-0AC2-4D86-AE10-30DDE4DA6C0A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
