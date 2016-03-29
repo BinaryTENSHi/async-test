@@ -7,7 +7,7 @@ namespace AsyncTest.Monad
     {
         public static void Main(string[] args)
         {
-            Option<int> result =
+            Maybe<int> result =
                 from two in ReturnTwo()
                 from five in ReturnFive()
                 select two + five;
@@ -15,7 +15,7 @@ namespace AsyncTest.Monad
             Console.WriteLine($"HasValue: {result.HasValue}, Value: {result.Value}");
 
             /* ASYNC */
-            Task<Option<int>> asyncResult =
+            Task<Maybe<int>> asyncResult =
                 from two in ReturnTwoAsync()
                 from five in ReturnFiveAsync()
                 from fives in ReturnSquareAsync(five)
@@ -30,18 +30,18 @@ namespace AsyncTest.Monad
             for (int i = 0; i < 30; i++)
             {
                 int num = r.Next(0, 10);
-                Option<int> optionResult =
+                Maybe<int> maybeResult =
                     from square in ReturnSquareIfGreaterThanFive(num)
                     from res in SubtractOne(square)
                     select res;
 
-                Console.WriteLine($"Input: {num} => Output: {optionResult.HasValue} : {optionResult.Value}");
+                Console.WriteLine($"Input: {num} => Output: {maybeResult.HasValue} : {maybeResult.Value}");
             }
 
             Console.ReadLine();
         }
 
-        private static Option<int> ReturnSquareIfGreaterThanFive(int x)
+        private static Maybe<int> ReturnSquareIfGreaterThanFive(int x)
         {
             if (x < 5)
                 return new Nothing<int>();
@@ -49,46 +49,46 @@ namespace AsyncTest.Monad
             return new Just<int>(x*x);
         }
 
-        private static Option<int> SubtractOne(int x)
+        private static Maybe<int> SubtractOne(int x)
         {
             return new Just<int>(x - 1);
         }
 
-        private static async Task<Option<int>> ReturnSquareAsync(int x)
+        private static async Task<Maybe<int>> ReturnSquareAsync(int x)
         {
             await Task.Delay(100).ConfigureAwait(false);
             return new Just<int>(x*x);
         }
 
-        private static async Task<Option<int>> ReturnFiveAsync()
+        private static async Task<Maybe<int>> ReturnFiveAsync()
         {
             await Task.Delay(1000).ConfigureAwait(false);
             return ReturnFive();
         }
 
-        private static async Task<Option<int>> ReturnTwoAsync()
+        private static async Task<Maybe<int>> ReturnTwoAsync()
         {
             await Task.Delay(1000).ConfigureAwait(false);
             return ReturnTwo();
         }
 
-        private static Option<int> ReturnNothing()
+        private static Maybe<int> ReturnNothing()
         {
             return new Nothing<int>();
         }
 
-        private static Option<int> ReturnTwo()
+        private static Maybe<int> ReturnTwo()
         {
             return new Just<int>(2);
         }
 
-        private static Option<int> ReturnFive()
+        private static Maybe<int> ReturnFive()
         {
             return new Just<int>(5);
         }
     }
 
-    public abstract class Option<T>
+    public abstract class Maybe<T>
     {
         public abstract T Value { get; }
         public abstract bool HasValue { get; }
@@ -96,25 +96,25 @@ namespace AsyncTest.Monad
 
     public static class AsyncOptionExtensions
     {
-        public static async Task<Option<TNext>> SelectMany<T, TNext>(this Task<Option<T>> self,
-            Func<T, Task<Option<TNext>>> func)
+        public static async Task<Maybe<TNext>> SelectMany<T, TNext>(this Task<Maybe<T>> self,
+            Func<T, Task<Maybe<TNext>>> func)
         {
-            Option<T> res = await self.ConfigureAwait(false);
+            Maybe<T> res = await self.ConfigureAwait(false);
             if (!res.HasValue)
                 return new Nothing<TNext>();
 
             return await func(res.Value).ConfigureAwait(false);
         }
 
-        public static async Task<Option<TResult>> SelectMany<T, TNext, TResult>(this Task<Option<T>> self,
-            Func<T, Task<Option<TNext>>> select,
+        public static async Task<Maybe<TResult>> SelectMany<T, TNext, TResult>(this Task<Maybe<T>> self,
+            Func<T, Task<Maybe<TNext>>> select,
             Func<T, TNext, TResult> project)
         {
-            Option<T> res = await self.ConfigureAwait(false);
+            Maybe<T> res = await self.ConfigureAwait(false);
             if (!res.HasValue)
                 return new Nothing<TResult>();
 
-            Option<TNext> next = await select(res.Value).ConfigureAwait(false);
+            Maybe<TNext> next = await select(res.Value).ConfigureAwait(false);
             if (!next.HasValue)
                 return new Nothing<TResult>();
 
@@ -124,7 +124,7 @@ namespace AsyncTest.Monad
 
     public static class OptionExtensions
     {
-        public static Option<TNext> SelectMany<T, TNext>(this Option<T> self, Func<T, Option<TNext>> func)
+        public static Maybe<TNext> SelectMany<T, TNext>(this Maybe<T> self, Func<T, Maybe<TNext>> func)
         {
             if (!self.HasValue)
                 return new Nothing<TNext>();
@@ -132,13 +132,13 @@ namespace AsyncTest.Monad
             return func(self.Value);
         }
 
-        public static Option<TResult> SelectMany<T, TNext, TResult>(this Option<T> self, Func<T, Option<TNext>> select,
+        public static Maybe<TResult> SelectMany<T, TNext, TResult>(this Maybe<T> self, Func<T, Maybe<TNext>> select,
             Func<T, TNext, TResult> project)
         {
             if (!self.HasValue)
                 return new Nothing<TResult>();
 
-            Option<TNext> next = select(self.Value);
+            Maybe<TNext> next = select(self.Value);
             if (!next.HasValue)
                 return new Nothing<TResult>();
 
@@ -146,7 +146,7 @@ namespace AsyncTest.Monad
         }
     }
 
-    public class Just<T> : Option<T>
+    public class Just<T> : Maybe<T>
     {
         public Just(T value)
         {
@@ -158,7 +158,7 @@ namespace AsyncTest.Monad
         public override bool HasValue => true;
     }
 
-    public class Nothing<T> : Option<T>
+    public class Nothing<T> : Maybe<T>
     {
         public override T Value => default(T);
 
