@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using AsyncTest.Database.Database.Dto;
 using AsyncTest.Database.Database.Mapper;
@@ -13,10 +15,10 @@ namespace AsyncTest.Database.Database.Repository
         {
         }
 
-        public async Task<BalloonDto> GetByColorAsync(BalloonColor color)
+        public async Task<IEnumerable<BalloonDto>> GetByColorAsync(BalloonColor color)
         {
-            BalloonEntity entity = await Set.SingleOrDefaultAsync(x => x.Color == color).ConfigureAwait(false);
-            return ToData(entity);
+            IList<BalloonEntity> entities = await Set.Where(x => x.Color == color).ToListAsync().ConfigureAwait(false);
+            return entities.Select(ToData);
         }
     }
 }
