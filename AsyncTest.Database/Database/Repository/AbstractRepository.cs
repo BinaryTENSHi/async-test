@@ -20,6 +20,8 @@ namespace AsyncTest.Database.Database.Repository
             _mapper = mapper;
         }
 
+        protected DbSet<TEntity> Set => _databaseContext.Set<TEntity>();
+
         public Task<bool> AnyAsync()
         {
             return _databaseContext.Set<TEntity>().AnyAsync();
@@ -50,7 +52,7 @@ namespace AsyncTest.Database.Database.Repository
             return _databaseContext.SaveChangesAsync();
         }
 
-        private TDto ToData(TEntity entity)
+        protected TDto ToData(TEntity entity)
         {
             TDto dto = new TDto();
             _mapper.MapToDto(entity, dto);
