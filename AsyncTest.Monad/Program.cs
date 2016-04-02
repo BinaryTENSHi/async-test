@@ -12,11 +12,14 @@ namespace AsyncTest.Monad
             MaybeExamples.Failure();
             MaybeExamples.Random();
 
-            AsyncMaybeExamples.Successful().Wait();
+            MaybeAsyncExamples.Successful().Wait();
 
             EitherExamples.Successful();
             EitherExamples.Failure();
             EitherExamples.MultipleFailures();
+
+            EitherAsyncExamples.Successful().Wait();
+            EitherAsyncExamples.Failure().Wait();
 
             Console.WriteLine("Done. Press ENTER to quit.");
             Console.ReadLine();

@@ -43,8 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Either\EitherAsyncExamples.cs" />
     <Compile Include="Either\EitherExamples.cs" />
-    <Compile Include="Maybe\AsyncMaybeExamples.cs" />
+    <Compile Include="Maybe\MaybeAsyncExamples.cs" />
     <Compile Include="Either\Either.cs" />
     <Compile Include="Either\EitherExtensions.cs" />
     <Compile Include="Maybe\MaybeExamples.cs" />

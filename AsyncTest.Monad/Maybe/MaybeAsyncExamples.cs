@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace AsyncTest.Monad.Maybe
 {
-    public static class AsyncMaybeExamples
+    public static class MaybeAsyncExamples
     {
         public static async Task Successful()
         {
