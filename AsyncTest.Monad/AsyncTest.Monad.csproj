@@ -43,6 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Maybe\AsyncMaybeExamples.cs" />
+    <Compile Include="Maybe\MaybeExamples.cs" />
+    <Compile Include="Maybe\Maybe.cs" />
+    <Compile Include="Maybe\MaybeExtensions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
