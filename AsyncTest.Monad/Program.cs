@@ -1,4 +1,5 @@
 ﻿using System;
+using AsyncTest.Monad.Either;
 using AsyncTest.Monad.Maybe;
 
 namespace AsyncTest.Monad
@@ -12,6 +13,10 @@ namespace AsyncTest.Monad
             MaybeExamples.Random();
 
             AsyncMaybeExamples.Successful().Wait();
+
+            EitherExamples.Successful();
+            EitherExamples.Failure();
+            EitherExamples.MultipleFailures();
 
             Console.WriteLine("Done. Press ENTER to quit.");
             Console.ReadLine();

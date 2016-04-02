@@ -43,7 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Either\EitherExamples.cs" />
     <Compile Include="Maybe\AsyncMaybeExamples.cs" />
+    <Compile Include="Either\Either.cs" />
+    <Compile Include="Either\EitherExtensions.cs" />
     <Compile Include="Maybe\MaybeExamples.cs" />
     <Compile Include="Maybe\Maybe.cs" />
     <Compile Include="Maybe\MaybeExtensions.cs" />
