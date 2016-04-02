@@ -9,12 +9,12 @@ namespace AsyncTest.LongRunning
     {
         private static Task TaskFromFactoryLongRunning()
         {
-            return Task.Factory.StartNew(Function, TaskCreationOptions.LongRunning);
+            return Task.Factory.StartNew(function: Function, creationOptions: TaskCreationOptions.LongRunning);
         }
 
         private static Task TaskFromRun()
         {
-            return Task.Run(Function);
+            return Task.Run(function: Function);
         }
 
         private static async Task Function()

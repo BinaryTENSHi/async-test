@@ -21,7 +21,7 @@ namespace AsyncTest.Communication.Client.Communication
                 throw new InvalidOperationException("Interval not set");
 
             _token = new CancellationTokenSource();
-            _task = Task.Factory.StartNew(PollingTaskAsync, TaskCreationOptions.LongRunning);
+            _task = Task.Factory.StartNew(function: PollingTaskAsync, creationOptions: TaskCreationOptions.LongRunning);
             IsRunning = true;
         }
 
