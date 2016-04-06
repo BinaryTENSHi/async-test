@@ -18,6 +18,7 @@ namespace AsyncTest.Test.Monad.Maybe
                 new Point(4, 5),
                 new[] { new Point(0, 6), new Point(7, -1), new Point(-3, 0) });
         }
+
         private static IEnumerable<TestCaseData> PointsSourceWithNull()
         {
             yield return new TestCaseData(
@@ -76,6 +77,22 @@ namespace AsyncTest.Test.Monad.Maybe
         }
 
         [Test]
+        [TestCaseSource(nameof(PointsSourceWithNull))]
+        public void Fold_PointAddition_WhenInvalidPoints_ThenReturnNothing(params Point?[] values)
+        {
+            // arrange
+            IEnumerable<Maybe<Point>> monads = values.Select(x =>
+                x.HasValue ? Maybe<Point>.Just(x.Value) : Maybe<Point>.Nothing);
+
+            // act
+            Maybe<Point> result = monads.Fold((acc, current) => new Point(acc.X + current.X, acc.Y + current.Y));
+
+            // assert
+            Assert.That(result.HasValue, Is.False);
+            Assert.That(result.Value, Is.EqualTo(default(Point)));
+        }
+
+        [Test]
         [TestCaseSource(nameof(PointsSource))]
         public void Fold_PointAddition_WhenValidPoints_ThenSuccessfullyAdded(
             Point expectedResult,
@@ -90,22 +107,6 @@ namespace AsyncTest.Test.Monad.Maybe
             // assert
             Assert.That(result.HasValue, Is.True);
             Assert.That(result.Value, Is.EqualTo(expectedResult));
-        }
-
-        [Test]
-        [TestCaseSource(nameof(PointsSourceWithNull))]
-        public void Fold_PointAddition_WhenInvalidPoints_ThenReturnNothing(params Point?[] values)
-        {
-            // arrange
-            IEnumerable<Maybe<Point>> monads = values.Select(x =>
-                x.HasValue ? Maybe<Point>.Just(x.Value) : Maybe<Point>.Nothing);
-
-            // act
-            Maybe<Point> result = monads.Fold((acc, current) => new Point(acc.X + current.X, acc.Y + current.Y));
-
-            // assert
-            Assert.That(result.HasValue, Is.False);
-            Assert.That(result.Value, Is.EqualTo(default(Point)));
         }
 
         [Test]
