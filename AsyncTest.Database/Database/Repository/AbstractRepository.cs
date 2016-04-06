@@ -33,7 +33,6 @@ namespace AsyncTest.Database.Database.Repository
             return data.Select(ToData);
         }
 
-
         public void Insert(TDto dto)
         {
             TEntity entity = _databaseContext.Set<TEntity>().Create();

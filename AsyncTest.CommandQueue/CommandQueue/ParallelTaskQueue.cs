@@ -8,7 +8,8 @@ namespace AsyncTest.CommandQueue.CommandQueue
     public class ParallelTaskQueue<T> : AbstractTaskQueue<T>
         where T : IQueueTask
     {
-        public ParallelTaskQueue(IEnumerable<T> tasks) : base(tasks)
+        public ParallelTaskQueue(IEnumerable<T> tasks)
+            : base(tasks)
         {
         }
 

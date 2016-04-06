@@ -40,7 +40,8 @@ namespace AsyncTest.Shared
             }
         }
 
-        public static void Load<T>() where T : INinjectModule, new()
+        public static void Load<T>()
+            where T : INinjectModule, new()
         {
             Instance.Kernel.Load<T>();
         }

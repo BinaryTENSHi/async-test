@@ -10,6 +10,7 @@ namespace AsyncTest.Communication.Server.Database
         DbSet<QueueItemEntity> QueueItems { get; }
 
         Task<int> SaveChangesAsync();
-        DbSet<TEntity> Set<TEntity>() where TEntity : class;
+        DbSet<TEntity> Set<TEntity>() 
+            where TEntity : class;
     }
 }

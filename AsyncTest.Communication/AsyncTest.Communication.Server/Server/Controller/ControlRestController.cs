@@ -21,7 +21,7 @@ namespace AsyncTest.Communication.Server.Server.Controller
         [ResponseType(typeof(ControlRest))]
         public HttpResponseMessage Get(HttpRequestMessage request)
         {
-            ControlRest controlRest = new ControlRest {ShouldPollQueue = _controlService.ShouldPoll};
+            ControlRest controlRest = new ControlRest { ShouldPollQueue = _controlService.ShouldPoll };
             return request.CreateResponse(controlRest);
         }
     }

@@ -7,7 +7,8 @@ namespace AsyncTest.CommandQueue.CommandQueue
     public class SerialTaskQueue<T> : AbstractTaskQueue<T>
         where T : IQueueTask
     {
-        public SerialTaskQueue(IEnumerable<T> tasks) : base(tasks)
+        public SerialTaskQueue(IEnumerable<T> tasks)
+            : base(tasks)
         {
         }
 

@@ -4,12 +4,12 @@
     {
         public dynamic CreateDto(dynamic source)
         {
-            return CreateDto((TEntity) source);
+            return CreateDto((TEntity)source);
         }
 
         public void MapToEntity(dynamic source, dynamic target)
         {
-            MapToEntity((TDto) source, (TEntity) target);
+            MapToEntity((TDto)source, (TEntity)target);
         }
 
         public abstract TDto CreateDto(TEntity source);

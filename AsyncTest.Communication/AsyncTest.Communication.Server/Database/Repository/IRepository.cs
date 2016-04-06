@@ -4,7 +4,8 @@ using System.Threading.Tasks;
 
 namespace AsyncTest.Communication.Server.Database.Repository
 {
-    public interface IRepository<TDto> where TDto : IDto
+    public interface IRepository<TDto>
+        where TDto : IDto
     {
         Task<bool> AnyAsync();
         Task<IEnumerable<TDto>> AllAsync();

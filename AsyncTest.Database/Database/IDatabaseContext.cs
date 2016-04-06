@@ -10,6 +10,8 @@ namespace AsyncTest.Database.Database
         DbSet<BalloonEntity> Balloons { get; }
 
         Task<int> SaveChangesAsync();
-        DbSet<T> Set<T>() where T : class;
+
+        DbSet<T> Set<T>()
+            where T : class;
     }
 }

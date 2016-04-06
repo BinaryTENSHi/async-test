@@ -17,7 +17,9 @@ namespace AsyncTest.Communication.Server.Database.Repository
         private readonly IEventAggregator _eventAggregator;
         private readonly IMapperDictionary _mapperDictionary;
 
-        protected AbstractRepository(IDatabaseContext databaseContext, IMapperDictionary mapperDictionary,
+        protected AbstractRepository(
+            IDatabaseContext databaseContext,
+            IMapperDictionary mapperDictionary,
             IEventAggregator eventAggregator)
         {
             _databaseContext = databaseContext;

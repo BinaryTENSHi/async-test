@@ -20,7 +20,7 @@ namespace AsyncTest.Database
         public MainViewModel(IBalloonRepository balloonRepository)
         {
             _balloonRepository = balloonRepository;
-            AddAsyncCommand = new AsyncCommand {CanExecuteHandler = obj => true, ExecuteHandler = AddBalloonAsync};
+            AddAsyncCommand = new AsyncCommand { CanExecuteHandler = obj => true, ExecuteHandler = AddBalloonAsync };
             UpdateAsyncCommand = new AsyncCommand
             {
                 CanExecuteHandler = obj => SelectedBalloon != null,
@@ -51,7 +51,6 @@ namespace AsyncTest.Database
                 Execute.OnUIThreadAsync(CommandManager.InvalidateRequerySuggested);
             }
         }
-
 
         private async Task UpdateBalloonAsync(object parameter)
         {
@@ -88,8 +87,8 @@ namespace AsyncTest.Database
             return new BalloonDto
             {
                 Id = Guid.NewGuid(),
-                Color = (BalloonColor) r.Next(0, 3),
-                Diameter = r.NextDouble()*100
+                Color = (BalloonColor)r.Next(0, 3),
+                Diameter = r.NextDouble() * 100
             };
         }
     }

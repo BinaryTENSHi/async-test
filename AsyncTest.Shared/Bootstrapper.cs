@@ -7,7 +7,8 @@ namespace AsyncTest.Shared
 {
     public abstract class AsyncTestBootstrapper : BootstrapperBase
     {
-        protected AsyncTestBootstrapper() : base(true)
+        protected AsyncTestBootstrapper()
+            : base(true)
         {
             Initialize();
         }

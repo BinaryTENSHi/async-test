@@ -21,6 +21,7 @@ namespace AsyncTest.Shared.UI
             remove
             {
                 CommandManager.RequerySuggested -= value;
+
                 // ReSharper disable once DelegateSubtraction
                 _canExecuteChanged -= value;
             }
@@ -45,10 +46,7 @@ namespace AsyncTest.Shared.UI
             ExecuteHandler?.Invoke(parameter);
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1030:UseEventsWhereAppropriate",
-            Justification =
-                "This warning appears when you use 'Raise' in the method name. This method specifically wants to raise an event."
-            )]
+        [SuppressMessage("Microsoft.Design", "CA1030:UseEventsWhereAppropriate")]
         public void RaiseCanExecuteChanged()
         {
             _canExecuteChanged?.Invoke(this, EventArgs.Empty);

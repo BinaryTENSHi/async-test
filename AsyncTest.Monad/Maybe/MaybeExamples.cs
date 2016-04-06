@@ -70,7 +70,7 @@ namespace AsyncTest.Monad.Maybe
             if (x < 5)
                 return Maybe<int>.Nothing;
 
-            return Maybe<int>.Just(x*x);
+            return Maybe<int>.Just(x * x);
         }
 
         private static Maybe<int> SubtractOne(int x)

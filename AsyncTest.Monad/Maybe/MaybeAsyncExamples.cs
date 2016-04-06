@@ -34,7 +34,7 @@ namespace AsyncTest.Monad.Maybe
         private static async Task<Maybe<int>> ReturnSquareAsync(int x)
         {
             await Task.Delay(100).ConfigureAwait(false);
-            return Maybe<int>.Just(x*x);
+            return Maybe<int>.Just(x * x);
         }
     }
 }
