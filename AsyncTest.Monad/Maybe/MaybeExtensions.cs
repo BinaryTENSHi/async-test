@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AsyncTest.Monad.Maybe
@@ -55,6 +56,26 @@ namespace AsyncTest.Monad.Maybe
                 return Maybe<TResult>.Nothing;
 
             return Maybe<TResult>.Just(project(res.Value, next.Value));
+        }
+
+        public static Maybe<T> Fold<T>(this IEnumerable<Maybe<T>> enumerable, Func<T, T, T> func)
+            => Fold(enumerable, default(T), func);
+
+        public static Maybe<T> Fold<T>(
+            this IEnumerable<Maybe<T>> enumerable,
+            T startValue,
+            Func<T, T, T> func)
+        {
+            T acc = startValue;
+            foreach (Maybe<T> maybe in enumerable)
+            {
+                if (!maybe.HasValue)
+                    return Maybe<T>.Nothing;
+
+                acc = func(acc, maybe.Value);
+            }
+
+            return Maybe<T>.Just(acc);
         }
     }
 }

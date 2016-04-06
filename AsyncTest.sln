@@ -21,6 +21,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncTest.Communication.Int
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncTest.Monad", "AsyncTest.Monad\AsyncTest.Monad.csproj", "{B18329A8-0AC2-4D86-AE10-30DDE4DA6C0A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AsyncTest.Test", "AsyncTest.Test", "{A934847A-8CEA-4E83-A741-0A1B1439ABA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncTest.Test.Monad", "AsyncTest.Test\AsyncTest.Test.Monad\AsyncTest.Test.Monad.csproj", "{8A6D1B83-E210-4EA0-8995-355D64E32FA4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +63,10 @@ Global
 		{B18329A8-0AC2-4D86-AE10-30DDE4DA6C0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B18329A8-0AC2-4D86-AE10-30DDE4DA6C0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B18329A8-0AC2-4D86-AE10-30DDE4DA6C0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A6D1B83-E210-4EA0-8995-355D64E32FA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A6D1B83-E210-4EA0-8995-355D64E32FA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A6D1B83-E210-4EA0-8995-355D64E32FA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A6D1B83-E210-4EA0-8995-355D64E32FA4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,5 +75,6 @@ Global
 		{4E9E52BB-943B-46FE-8561-3879B27BAA9C} = {BA2C527B-C244-4C2D-80E8-926EED1A9685}
 		{C9CC06A4-CC55-488F-8DD0-AA88D942E748} = {BA2C527B-C244-4C2D-80E8-926EED1A9685}
 		{CF11D32A-E356-4A4D-B017-B7EDD51C50E6} = {BA2C527B-C244-4C2D-80E8-926EED1A9685}
+		{8A6D1B83-E210-4EA0-8995-355D64E32FA4} = {A934847A-8CEA-4E83-A741-0A1B1439ABA8}
 	EndGlobalSection
 EndGlobal
