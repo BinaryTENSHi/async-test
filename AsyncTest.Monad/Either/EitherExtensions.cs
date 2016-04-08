@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AsyncTest.Monad.Either
@@ -44,6 +45,28 @@ namespace AsyncTest.Monad.Either
                 return next;
 
             return Either<TLeft, TNRight>.Right(project(result.RightValue, next.RightValue));
+        }
+
+        public static Either<TLeft, TRight> Fold<TLeft, TRight>(
+            this IEnumerable<Either<TLeft, TRight>> self,
+            Func<TRight, TRight, TRight> func)
+            => Fold(self, default(TRight), func);
+
+        public static Either<TLeft, TRight> Fold<TLeft, TRight>(
+            this IEnumerable<Either<TLeft, TRight>> self,
+            TRight startValue,
+            Func<TRight, TRight, TRight> func)
+        {
+            TRight acc = startValue;
+            foreach (Either<TLeft, TRight> either in self)
+            {
+                if (either.HasLeftValue)
+                    return either;
+
+                acc = func(acc, either.RightValue);
+            }
+
+            return Either<TLeft, TRight>.Right(acc);
         }
     }
 }

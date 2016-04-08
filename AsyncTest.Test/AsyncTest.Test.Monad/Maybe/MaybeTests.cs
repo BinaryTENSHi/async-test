@@ -6,6 +6,7 @@ using NUnit.Framework;
 namespace AsyncTest.Test.Monad.Maybe
 {
     [TestFixture]
+    [Parallelizable(ParallelScope.Children)]
     public class MaybeTests
     {
         private static IEnumerable<TestCaseData> PointsSource()
