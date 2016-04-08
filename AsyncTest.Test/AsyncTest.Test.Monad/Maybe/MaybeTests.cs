@@ -127,5 +127,20 @@ namespace AsyncTest.Test.Monad.Maybe
             Assert.That(result.HasValue, Is.True);
             Assert.That(result.Value, Is.EqualTo(expectedResult));
         }
+
+        [Test]
+        public void Map_Square_ThenResultSquared()
+        {
+            // arrange
+            Maybe<int>[] expected = { Maybe<int>.Just(25), Maybe<int>.Just(36), Maybe<int>.Nothing, Maybe<int>.Just(144) };
+            Maybe<int>[] input = { Maybe<int>.Just(5), Maybe<int>.Just(6), Maybe<int>.Nothing, Maybe<int>.Just(12) };
+
+            // act
+            Maybe<int>[] result = input.Map(x => x * x).ToArray();
+
+            // assert
+            Assert.That(result.Length, Is.EqualTo(expected.Length));
+            Assert.That(result, Is.EquivalentTo(expected));
+        }
     }
 }

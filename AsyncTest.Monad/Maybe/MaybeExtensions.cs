@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AsyncTest.Monad.Maybe
@@ -76,6 +77,15 @@ namespace AsyncTest.Monad.Maybe
             }
 
             return Maybe<T>.Just(acc);
+        }
+
+        public static IEnumerable<Maybe<TNext>> Map<T, TNext>(
+            this IEnumerable<Maybe<T>> self,
+            Func<T, TNext> func)
+        {
+            return self.Select(maybe => !maybe.HasValue
+                ? Maybe<TNext>.Nothing
+                : Maybe<TNext>.Just(func(maybe.Value)));
         }
     }
 }
