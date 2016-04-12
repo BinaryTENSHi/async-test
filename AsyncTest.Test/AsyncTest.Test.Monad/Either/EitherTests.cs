@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AsyncTest.Monad.Either;
 using NUnit.Framework;
@@ -10,6 +11,26 @@ namespace AsyncTest.Test.Monad.Either
     public class EitherTests
     {
         private const string ErrorMessage = "Error";
+
+        [Test]
+        public void Monad_Identity()
+        {
+            // arrange
+            Either<string, int> rightValue = Either<string, int>.Right(32);
+            Either<string, int> leftValue = Either<string, int>.Left(ErrorMessage);
+
+            // act
+            Func<Either<string, int>, Either<string, int>> identityFunc =
+                either => from value in either
+                    select Either<string, int>.Right(value);
+
+            Either<string, int> resultRightValue = identityFunc(rightValue);
+            Either<string, int> resultLeftValue = identityFunc(leftValue);
+
+            // assert
+            Assert.That(resultRightValue, Is.EqualTo(rightValue));
+            Assert.That(resultLeftValue, Is.EqualTo(leftValue));
+        }
 
         [Test]
         [TestCase(null, 22)]

@@ -7,6 +7,16 @@ namespace AsyncTest.Monad.Maybe
 {
     public static class MaybeExtensions
     {
+        public static Maybe<TNext> Select<T, TNext>(
+            this Maybe<T> self,
+            Func<T, Maybe<TNext>> func)
+        {
+            if (!self.HasValue)
+                return Maybe<TNext>.Nothing;
+
+            return func(self.Value);
+        }
+
         public static Maybe<TNext> SelectMany<T, TNext>(
             this Maybe<T> self,
             Func<T, Maybe<TNext>> func)

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AsyncTest.Monad.Maybe;
 using NUnit.Framework;
@@ -39,6 +40,26 @@ namespace AsyncTest.Test.Monad.Maybe
 
             public int X { get; }
             public int Y { get; }
+        }
+
+        [Test]
+        public void Monad_Identity()
+        {
+            // arrange
+            Maybe<int> justValue = Maybe<int>.Just(32);
+            Maybe<int> nothingValue = Maybe<int>.Nothing;
+
+            // act
+            Func<Maybe<int>, Maybe<int>> identityFunc =
+                maybe => from value in maybe
+                    select Maybe<int>.Just(value);
+
+            Maybe<int> resultJustValue = identityFunc(justValue);
+            Maybe<int> resultNothingValue = identityFunc(nothingValue);
+
+            // assert
+            Assert.That(resultJustValue, Is.EqualTo(justValue));
+            Assert.That(resultNothingValue, Is.EqualTo(nothingValue));
         }
 
         [Test]
