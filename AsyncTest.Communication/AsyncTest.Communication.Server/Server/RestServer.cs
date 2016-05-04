@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using System.Net.Http.Headers;
 using System.Web.Http;
 using AsyncTest.Shared;
@@ -13,13 +12,8 @@ namespace AsyncTest.Communication.Server.Server
 {
     public class RestServer : IRestServer
     {
-        private readonly string _baseAddress;
+        private const string BaseAddress = "http://+:6688";
         private IDisposable _webApp;
-
-        public RestServer()
-        {
-            _baseAddress = string.Format(CultureInfo.InvariantCulture, "http://{0}:{1}/", "localhost", "6688");
-        }
 
         [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling")]
         public virtual void Startup(IAppBuilder appBuilder)
@@ -42,7 +36,7 @@ namespace AsyncTest.Communication.Server.Server
 
         public virtual void Start()
         {
-            _webApp = WebApp.Start(_baseAddress, Startup);
+            _webApp = WebApp.Start(BaseAddress, Startup);
         }
 
         public virtual void Stop()

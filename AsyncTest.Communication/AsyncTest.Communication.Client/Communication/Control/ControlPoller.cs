@@ -8,7 +8,7 @@ namespace AsyncTest.Communication.Client.Communication.Control
 {
     public class ControlPoller : AbstractAsyncPoller, IControlPoller
     {
-        private readonly Uri _baseUri = new Uri("http://localhost:6688/");
+        private readonly Uri _baseUri = new Uri($"http://{Environment.MachineName}:6688/");
         private readonly IQueuePoller _queuePoller;
         private readonly IRestClient _restClient;
 
@@ -16,13 +16,15 @@ namespace AsyncTest.Communication.Client.Communication.Control
         {
             _restClient = restClient;
             _queuePoller = queuePoller;
-            SetInterval(TimeSpan.FromMilliseconds(100));
+            SetInterval(TimeSpan.FromMilliseconds(500));
         }
 
         public override async Task PollAsync()
         {
             ControlRest controlRest =
                 await _restClient.GetAsync<ControlRest>(new Uri(_baseUri, "/control/")).ConfigureAwait(false);
+            if (controlRest == null)
+                return;
 
             if (!controlRest.ShouldPollQueue && _queuePoller.IsRunning)
             {

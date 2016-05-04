@@ -3,7 +3,23 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:client="clr-namespace:AsyncTest.Communication.Client"
         mc:Ignorable="d"
-        Title="Communication Client" Height="350" Width="525">
-    <Grid />
+        Title="Communication Client" Height="350" Width="525" d:DataContext="{d:DesignInstance client:MainViewModel}">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Window.Resources>
+    <Grid>
+        <StackPanel>
+            <Label Content="Client" HorizontalAlignment="Center" FontWeight="Bold" />
+            <DockPanel>
+                <Label Content="App Key" Width="100" />
+                <TextBox Text="{Binding AppKey}" />
+            </DockPanel>
+            <DockPanel>
+                <Label Content="Shared Secret" Width="100" />
+                <TextBox Text="{Binding SharedSecret}" />
+            </DockPanel>
+        </StackPanel>
+    </Grid>
 </Window>

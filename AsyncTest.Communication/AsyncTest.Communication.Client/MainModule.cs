@@ -12,12 +12,14 @@ namespace AsyncTest.Communication.Client
         public override void Load()
         {
             Bind<IWindowManager>().To<WindowManager>();
+            Bind<IEventAggregator>().To<EventAggregator>().InSingletonScope();
 
             Bind<IMainViewModel>().To<MainViewModel>();
 
             Bind<IRestClient>().To<RestClient>();
             Bind<IQueuePoller>().To<QueuePoller>().InSingletonScope();
             Bind<IControlPoller>().To<ControlPoller>().InSingletonScope();
+            Bind<IAuthorizationContainer>().To<AuthorizationContainer>().InSingletonScope();
             Bind<IQueueItemHandlerDictionary>().To<QueueItemHandlerDictionary>();
 
             Bind<IQueueItemHandler>().To<MessageQueueItemHandler>();

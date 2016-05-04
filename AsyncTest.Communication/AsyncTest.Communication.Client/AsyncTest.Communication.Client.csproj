@@ -31,6 +31,10 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Caliburn.Micro.3.0.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
@@ -63,9 +67,12 @@
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Communication\AbstractAsyncPoller.cs" />
+    <Compile Include="Communication\AuthorizationContainer.cs" />
     <Compile Include="Communication\Control\ControlPoller.cs" />
     <Compile Include="Communication\Control\IControlPoller.cs" />
+    <Compile Include="Communication\HMAC256Handler.cs" />
     <Compile Include="Communication\IAsyncPoller.cs" />
+    <Compile Include="Communication\IAuthorizationContainer.cs" />
     <Compile Include="Communication\IRestClient.cs" />
     <Compile Include="Communication\Queue\IQueueItemHandlerDictionary.cs" />
     <Compile Include="Communication\Queue\QueueItemHandlerDictionary.cs" />

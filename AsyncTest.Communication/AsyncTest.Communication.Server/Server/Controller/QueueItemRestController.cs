@@ -7,6 +7,7 @@ using System.Web.Http.Description;
 using AsyncTest.Communication.Interface;
 using AsyncTest.Communication.Interface.Queue;
 using AsyncTest.Communication.Server.Database.Queue.QueueItem;
+using AsyncTest.Communication.Server.Server.Authentication;
 
 namespace AsyncTest.Communication.Server.Server.Controller
 {
@@ -22,6 +23,7 @@ namespace AsyncTest.Communication.Server.Server.Controller
         [HttpGet]
         [Route(RestRoutes.QueueItemUrl)]
         [ResponseType(typeof(QueueItemRest))]
+        [AuthenticationRequired]
         public async Task<HttpResponseMessage> GetAsync(HttpRequestMessage request, Guid id)
         {
             QueueItemDto item = await _queueItemRepository.FindAsync(id).ConfigureAwait(false);
@@ -33,6 +35,7 @@ namespace AsyncTest.Communication.Server.Server.Controller
 
         [HttpDelete]
         [Route(RestRoutes.QueueItemUrl)]
+        [AuthenticationRequired]
         public async Task<HttpResponseMessage> DeleteAsync(HttpRequestMessage request, Guid id)
         {
             bool success = await _queueItemRepository.DeleteAsync(id).ConfigureAwait(false);

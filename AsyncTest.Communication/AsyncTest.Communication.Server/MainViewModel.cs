@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using AsyncTest.Communication.Interface.Authentication;
 using AsyncTest.Communication.Interface.Queue;
+using AsyncTest.Communication.Server.Database.Authentication;
 using AsyncTest.Communication.Server.Database.Queue.QueueItem;
 using AsyncTest.Communication.Server.Database.Queue.QueueItem.MessageQueueItem;
 using AsyncTest.Communication.Server.Event;
@@ -11,8 +13,9 @@ using Caliburn.Micro;
 
 namespace AsyncTest.Communication.Server
 {
-    public class MainViewModel : Screen, IMainViewModel, IHandleWithTask<EntityChangedEvent<QueueItemEntity>>
+    public class MainViewModel : Screen, IMainViewModel, IHandleWithTask<EntityChangedEvent<QueueItemEntity>>, IHandleWithTask<EntityChangedEvent<ClientEntity>>
     {
+        private readonly IClientRepository _clientRepository;
         private readonly IControlService _controlService;
         private readonly IEventAggregator _eventAggregator;
         private readonly IQueueItemRepository _queueItemRepository;
@@ -21,11 +24,13 @@ namespace AsyncTest.Communication.Server
         public MainViewModel(
             IQueueItemRepository queueItemRepository,
             IEventAggregator eventAggregator,
-            IControlService controlService)
+            IControlService controlService,
+            IClientRepository clientRepository)
         {
             _queueItemRepository = queueItemRepository;
             _eventAggregator = eventAggregator;
             _controlService = controlService;
+            _clientRepository = clientRepository;
 
             CreateMessageQueueItemAsyncCommand = new AsyncCommand
             {
@@ -33,13 +38,24 @@ namespace AsyncTest.Communication.Server
                 ExecuteHandler = CreateMessageQueueItemAsync
             };
 
+            CreateClientAsyncCommand = new AsyncCommand
+            {
+                CanExecuteHandler = obj => true,
+                ExecuteHandler = CreateClientAsync
+            };
+
             QueueItems = new ObservableCollection<QueueItemDto>();
+            Clients = new ObservableCollection<ClientDto>();
         }
 
+        public IAsyncCommand CreateClientAsyncCommand { get; }
+        public IAsyncCommand CreateMessageQueueItemAsyncCommand { get; }
+
         public Task Handle(EntityChangedEvent<QueueItemEntity> message)
-        {
-            return Execute.OnUIThreadAsync(async () => await UpdateQueueItemsAsync().ConfigureAwait(false));
-        }
+            => Execute.OnUIThreadAsync(async () => await UpdateQueueItemsAsync().ConfigureAwait(false));
+
+        public Task Handle(EntityChangedEvent<ClientEntity> message) 
+            => Execute.OnUIThreadAsync(async () => await UpdateClientsAsync().ConfigureAwait(false));
 
         public string InputText
         {
@@ -51,9 +67,8 @@ namespace AsyncTest.Communication.Server
             }
         }
 
-        public IAsyncCommand CreateMessageQueueItemAsyncCommand { get; }
-
         public ObservableCollection<QueueItemDto> QueueItems { get; set; }
+        public ObservableCollection<ClientDto> Clients { get; set; }
 
         public bool ShouldPoll
         {
@@ -74,6 +89,18 @@ namespace AsyncTest.Communication.Server
             await _queueItemRepository.SaveChangesAsync().ConfigureAwait(false);
         }
 
+        private async Task CreateClientAsync(object parameter)
+        {
+            ClientDto item = new ClientDto
+            {
+                Id = Guid.NewGuid(),
+                SharedSecret = Convert.ToBase64String(AuthenticationHelper.SecureBytes(64))
+            };
+
+            _clientRepository.Insert(item);
+            await _clientRepository.SaveChangesAsync().ConfigureAwait(false);
+        }
+
         protected override void OnInitialize()
         {
             DisplayName = "Communication Server";
@@ -83,6 +110,7 @@ namespace AsyncTest.Communication.Server
         {
             _eventAggregator.Subscribe(this);
             await UpdateQueueItemsAsync().ConfigureAwait(false);
+            await UpdateClientsAsync().ConfigureAwait(false);
         }
 
         protected override void OnDeactivate(bool close)
@@ -95,6 +123,13 @@ namespace AsyncTest.Communication.Server
             QueueItems.Clear();
             foreach (QueueItemDto queueItemDto in await _queueItemRepository.AllAsync().ConfigureAwait(true))
                 QueueItems.Add(queueItemDto);
+        }
+
+        private async Task UpdateClientsAsync()
+        {
+            Clients.Clear();
+            foreach (ClientDto clientDto in await _clientRepository.AllAsync().ConfigureAwait(true))
+                Clients.Add(clientDto);
         }
     }
 }

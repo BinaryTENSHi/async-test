@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using AsyncTest.Communication.Server.Database.Authentication;
 using AsyncTest.Communication.Server.Database.Queue.QueueItem;
 using AsyncTest.Communication.Server.Server;
 using AsyncTest.Shared;
@@ -14,6 +15,7 @@ namespace AsyncTest.Communication.Server
         {
             MainKernel.Load<MainModule>();
             MainKernel.Load<QueueItemModule>();
+            MainKernel.Load<ClientModule>();
 
             _restServer = MainKernel.Get<IRestServer>();
             _restServer.Start();

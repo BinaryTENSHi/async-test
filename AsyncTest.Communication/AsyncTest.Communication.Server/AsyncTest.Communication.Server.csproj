@@ -92,6 +92,7 @@
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
       <Private>True</Private>
@@ -126,6 +127,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Database\Authentication\ClientDto.cs" />
+    <Compile Include="Database\Authentication\ClientEntity.cs" />
+    <Compile Include="Database\Authentication\ClientMapper.cs" />
+    <Compile Include="Database\Authentication\IClientRepository.cs" />
+    <Compile Include="Database\Authentication\ClientModule.cs" />
+    <Compile Include="Database\Authentication\ClientRepository.cs" />
     <Compile Include="Database\DatabaseContext.cs" />
     <Compile Include="Database\IDto.cs" />
     <Compile Include="Database\Mapper\AbstractMapper.cs" />
@@ -148,6 +155,8 @@
     <Compile Include="Database\Mapper\IMapperDictionary.cs" />
     <Compile Include="Database\Repository\IRepository.cs" />
     <Compile Include="Event\EntityChangedEvent.cs" />
+    <Compile Include="Server\Authentication\AuthenticationRequiredAttribute.cs" />
+    <Compile Include="Server\Authentication\ResultWithChallenge.cs" />
     <Compile Include="Server\Controller\ControlRestController.cs" />
     <Compile Include="Server\Controller\QueueItemRestController.cs" />
     <Compile Include="Server\Controller\QueueRestController.cs" />

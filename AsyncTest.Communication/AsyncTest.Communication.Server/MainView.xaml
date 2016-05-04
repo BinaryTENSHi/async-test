@@ -5,12 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AsyncTest.Communication.Server"
         xmlns:queueItem="clr-namespace:AsyncTest.Communication.Server.Database.Queue.QueueItem"
+        xmlns:authentication="clr-namespace:AsyncTest.Communication.Server.Database.Authentication"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance local:MainViewModel}"
         Title="Communication Server" Height="350" Width="525">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
         <DockPanel>
             <StackPanel DockPanel.Dock="Top">
+                <Label Content="Queue" HorizontalAlignment="Center" FontWeight="Bold" />
                 <CheckBox Content="Client should poll queue" IsChecked="{Binding ShouldPoll}" />
                 <TextBox Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}" />
                 <Button Content="Create" Command="{Binding CreateMessageQueueItemAsyncCommand}" />
@@ -22,6 +28,28 @@
                             <Run Text="{Binding Id}" />
                             <Run Text="{Binding ItemType}" />
                         </TextBlock>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </DockPanel>
+        <DockPanel Grid.Column="1">
+            <StackPanel DockPanel.Dock="Top">
+                <Label Content="Clients" HorizontalAlignment="Center" FontWeight="Bold" />
+                <Button Content="Create" Command="{Binding CreateClientAsyncCommand}" />
+            </StackPanel>
+            <ListBox DockPanel.Dock="Bottom" ItemsSource="{Binding Clients}">
+                <ListBox.Resources>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
+                    <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
+                </ListBox.Resources>
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="{x:Type authentication:ClientDto}">
+                        <StackPanel Margin="5">
+                            <TextBox Background="Transparent" BorderThickness="0" Text="{Binding Id, Mode=OneWay}"
+                                     IsReadOnly="True" />
+                            <TextBox Background="Transparent" BorderThickness="0"
+                                     Text="{Binding SharedSecret, Mode=OneWay}" IsReadOnly="True" />
+                        </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>

@@ -9,9 +9,9 @@ namespace AsyncTest.Communication.Client.Communication
     {
         private HttpClient _httpClient;
 
-        public RestClient()
+        public RestClient(IAuthorizationContainer authorizationContainer)
         {
-            _httpClient = new HttpClient();
+            _httpClient = HttpClientFactory.Create(new HMAC256Handler(authorizationContainer));
         }
 
         public void Dispose()

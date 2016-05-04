@@ -9,7 +9,7 @@ namespace AsyncTest.Communication.Client.Communication.Queue
 {
     public class QueuePoller : AbstractAsyncPoller, IQueuePoller
     {
-        private readonly Uri _baseUri = new Uri("http://localhost:6688/");
+        private readonly Uri _baseUri = new Uri($"http://{Environment.MachineName}:6688/");
         private readonly IQueueItemHandlerDictionary _queueItemHandlerDictionary;
         private readonly IRestClient _restClient;
 
@@ -25,6 +25,9 @@ namespace AsyncTest.Communication.Client.Communication.Queue
             Debug.WriteLine("Polling queue...");
 
             QueueRest queue = await _restClient.GetAsync<QueueRest>(new Uri(_baseUri, "/queue/")).ConfigureAwait(false);
+            if (queue == null)
+                return;
+
             foreach (LinkRest linkRest in queue.Items)
             {
                 IQueueItemHandler handler = _queueItemHandlerDictionary.GetHandler(linkRest.Relation);

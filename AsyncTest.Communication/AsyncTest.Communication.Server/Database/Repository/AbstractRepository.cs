@@ -27,6 +27,8 @@ namespace AsyncTest.Communication.Server.Database.Repository
             _eventAggregator = eventAggregator;
         }
 
+        protected DbSet<TEntity> Set => _databaseContext.Set<TEntity>();
+
         public Task<bool> AnyAsync()
         {
             return _databaseContext.Set<TEntity>().AnyAsync();

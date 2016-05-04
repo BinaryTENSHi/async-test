@@ -19,6 +19,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authentication\AuthenticationValues.cs" />
+    <Compile Include="Authentication\AuthenticationHelper.cs" />
     <Compile Include="Control\ControlRest.cs" />
     <Compile Include="LinkRest.cs" />
     <Compile Include="Queue\MessageQueueItemRest.cs" />

@@ -5,6 +5,7 @@ using System.Web.Http;
 using AsyncTest.Communication.Interface;
 using AsyncTest.Communication.Interface.Queue;
 using AsyncTest.Communication.Server.Database.Queue.QueueItem;
+using AsyncTest.Communication.Server.Server.Authentication;
 
 namespace AsyncTest.Communication.Server.Server.Controller
 {
@@ -19,6 +20,7 @@ namespace AsyncTest.Communication.Server.Server.Controller
 
         [HttpGet]
         [Route(RestRoutes.QueueUrl)]
+        [AuthenticationRequired]
         public async Task<QueueRest> GetAsync(HttpRequestMessage request)
         {
             IEnumerable<QueueItemDto> items = await _queueItemRepository.AllAsync().ConfigureAwait(false);
