@@ -2,6 +2,6 @@
 {
     public static class AuthenticationValues
     {
-        public const string AuthenticationScheme = "HMAC-256";
+        public const string AuthenticationScheme = "HMAC-SHA-256";
     }
 }
